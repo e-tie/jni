@@ -9,3 +9,17 @@ For Mac OS:
 gcc -c -fpic -I/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/include/ -I/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/include/darwin/ HelloWorld.c
 gcc -shared -o libhello.dylib HelloWorld.o
 
+In Windows (Visual Studio x64 compiler (cl) ):
+
+javac HelloJNI.java
+javah HelloJNI
+cl /MD /LD /I "c:\Program Files\java\jdk1.8.0_45\include" /I "c:\Program Files\java\jdk1.8.0_45\include\win32" helloJNI.c /Fehello.dll
+export LD_LIBRARY_PATH=.
+java HelloJNI
+
+
+In Windows (gcc of cygwin):
+
+This is currently not working for linking.
+gcc -D __int64="long long" -Wl,--add-stdcall-alias -I"/cygdrive/c/Program Files/java/jdk1.8.0_45/include" -I"/cygdrive/c/Program Files/java/jdk1.8.0_45/include/win32" -shared -o hello.dll HelloJNI.c
+
